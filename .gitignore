@@ -1,0 +1,12 @@
+/.idea/
+/venv/
+/solr_data/
+
+/source/db.sqlite3
+
+/source/media/*
+/source/static/*
+
+!/source/media/Readme.md
+!/source/static/Readme.md
+
