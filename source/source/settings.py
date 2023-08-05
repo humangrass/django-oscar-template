@@ -1,10 +1,13 @@
 import os
+from decouple import config
 
 from oscar.defaults import *
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env_file_path = os.path.join(BASE_DIR / 'configs' / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -114,8 +117,19 @@ WSGI_APPLICATION = 'source.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': config('DATABASE_ENGINE', default='django.db.backends.sqlite3'),
+        'NAME': config('POSTGRES_DB', default=BASE_DIR / 'db.sqlite3'),
+        'USER': config('POSTGRES_USER', default=''),
+        'PASSWORD': config('POSTGRES_PASSWORD', default=''),
+        'HOST': config('DATABASE_HOST', default=''),
+        'PORT': config('DATABASE_PORT', default=''),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'shop_db',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'very_secret',
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
+
     }
 }
 
@@ -172,9 +186,9 @@ AUTHENTICATION_BACKENDS = (
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr',
-        'INCLUDE_SPELLING': True,
+        # 'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        # 'URL': 'http://127.0.0.1:8983/solr',
+        # 'INCLUDE_SPELLING': True,
     },
 }
 
